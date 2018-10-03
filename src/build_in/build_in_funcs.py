@@ -50,6 +50,9 @@ def test_classmethod():
 def test_complex():
     print(complex('1+2j'))
     # complex('1 + 2j')  # 是错误的
+    z = complex('1+2j')
+    print(z.real)
+    print(z.imag)
 
 
 # [知识点] delattr [知识点] hasattr [知识点] setattr [知识点] getattr
