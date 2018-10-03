@@ -3,7 +3,7 @@
   Author  : 'longguangbin'
   Contact : lgb453476610@163.com
   Date    : 2018/9/29
-  Usage   :
+  Usage   : 内置函数
 """
 
 from __future__ import print_function
@@ -17,6 +17,7 @@ import pprint
 # memoryview 类，创建的“内存视图”对象
 # next
 # slice
+# super
 
 
 # [知识点] staticmethod [知识点] classmethod
@@ -273,6 +274,35 @@ def test_sorted():
 
     a = [['a1', 2], ['a2', 3], ['a3', 5], ['a4', 6], ['a5', 64]]
     print(sorted(a, cmp=cmp_tt, key=lambda x: x[1], reverse=True))
+
+
+# [知识点] type 动态创建类
+def test_type():
+    # 判断类型
+    print(type('3'))
+    # 传入 3 个参数，动态创建类
+    X = type('X', (object,), dict(a=1))
+    x = X()
+    print(x.a)
+    print(type(x))
+
+    class X2(object):
+        a = 1
+
+    x2 = X2()
+    print(type(x2))
+
+
+# [知识点] vars 返回有 __dict__ 属性的 __dict__ 值
+def test_vars():
+    vars()  # 不传参数的时候，就和 locals() 一样
+    pass
+
+
+# [知识点] __import__ importlib.import_module()
+# 不全，对于 module 的动态引用
+def test__import__():
+    pass
 
 
 def pass_t():
