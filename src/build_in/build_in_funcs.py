@@ -12,7 +12,11 @@ import pprint
 
 # compile
 # format
-# frozenset 是一个类
+# frozenset 类
+# iter
+# memoryview 类，创建的“内存视图”对象
+# next
+# slice
 
 
 # [知识点] staticmethod [知识点] classmethod
@@ -49,6 +53,9 @@ def test_complex():
 
 # [知识点] delattr [知识点] hasattr [知识点] setattr [知识点] getattr
 # 跟属性有关的函数
+def test_hasattr():
+    a = 'string'
+    print(hasattr(a, 'format'))
 
 
 # [知识点] dir
@@ -136,6 +143,136 @@ def test_input():
 def test_isinstance():
     isinstance(3, int)
     issubclass(int, float)
+
+
+# [知识点] max [知识点] min
+# max(iterable [,key]) / max(arg1,arg2,*args [,key])
+# key 与 sort 的 key 作用相同，将传入比较的对象进行 key 函数的处理后再进行比较
+def test_max():
+    # 正常比较大小
+    a = [-7, -9, 4, 5, -6, 7]
+    print('正常比较大小 : ', max(a))
+    # 使用 abs 后比较大小
+    print('使用 abs 后比较大小 : ', max(a, key=lambda x: abs(x)))
+    # 指定比较的数据
+    b = [[-7, 8], [-9, 7], [4, 3], [5, 4], [-6, 6], [7, 5]]
+    print('使用第 0 个数据比较 : ', max(b, key=lambda x: x[0]))
+    print('使用第 1 个数据比较 : ', max(b, key=lambda x: x[1]))
+    # 比较其他类型数据
+    prices = {'A': 3, 'B': 6, 'C': 9, 'E': 1}
+    print('比较 dict 的数据 : ', max(prices.items(), key=lambda x: x[1]))
+    # 同样，对于 max(arg1,arg2,*args [,key]) 也可以使用 key
+    max(2, 3, -8, 5, key=lambda x: abs(x))
+    max(2, 3, -8, 5, key=lambda x: abs(x))
+    max([2, 3], [3, 3, 4], [-8, 9], [3, 5], key=lambda x: x[0])
+    max([2, 3], [3, 3, 4], [-8, 9], [3, 5], key=lambda x: x[1])
+
+
+# [知识点] property
+# 1、使用函数的方法；2、使用修饰器方法；当使用了修饰器后，自动有了setter（写属性）、deleter（删属性）可用，当不用时，为只读
+def test_property():
+    class C(object):
+        def __init__(self):
+            self._x = None
+
+        def getx(self):
+            return self._x
+
+        def setx(self, value):
+            self._x = value
+
+        def delx(self):
+            del self._x
+
+        x = property(getx, setx, delx, "I'm the 'x' property.")
+        # property([fget[, fset[, fdel[, doc]]]])
+
+    c = C()
+    c.x = 1
+    print(c.x)
+    del c.x
+
+    # voltage 为只读属性，不能设值，也不能删除
+    class Parrot(object):
+        def __init__(self):
+            self._voltage = 100000
+
+        @property
+        def voltage(self):
+            """Get the current voltage."""
+            return self._voltage
+
+    parrot = Parrot()
+    # parrot.voltage = 1  # 不可设值
+    # del parrot.voltage  # 不可删除
+    print(parrot.voltage)
+
+    class C2(object):
+        def __init__(self):
+            self._x = 100000
+
+        @property
+        def x(self):
+            """I'm the 'x' property."""
+            return self._x
+
+        @x.setter
+        def x(self, value):
+            self._x = value
+
+        @x.deleter
+        def x(self):
+            del self._x
+
+    c = C2()
+    c.x = 1
+    print(c.x)
+    del c.x
+
+
+# [知识点] reduce
+# reduce(function, iterable[, initializer]), initializer 是设值初始化用的
+def test_reduce():
+    # reduce 等价于下面函数
+    def reducex(func, iterable, initializer=None):
+        it = iter(iterable)
+        if initializer is None:
+            try:
+                initializer = next(it)
+            except StopIteration:
+                raise TypeError('reduce() of empty sequence with no initial value')
+        accum_value = initializer
+        for x in it:
+            accum_value = func(accum_value, x)
+        return accum_value
+
+    print(reduce(lambda x, y: x + y, [1, 2, 3, 4, 5], 3))
+    print(reducex(lambda x, y: x + y, [1, 2, 3, 4, 5]))
+
+
+# [知识点] repr 原始字符串
+# __repr__ 能够设置 repr 函数的返回值
+def test_repr():
+    a = 'Enter\nContent'
+    print(a)
+    print(repr(a))
+
+
+# [知识点] reversed 反转
+def test_reversed():
+    a = [2, 3, 4, 5]
+    print(a[::-1])
+    print(list(reversed(a)))
+
+
+# [知识点] sorted 排序函数
+def test_sorted():
+    def cmp_tt(x, y):
+        # 比较规则
+        return x - y
+
+    a = [['a1', 2], ['a2', 3], ['a3', 5], ['a4', 6], ['a5', 64]]
+    print(sorted(a, cmp=cmp_tt, key=lambda x: x[1], reverse=True))
 
 
 def pass_t():
