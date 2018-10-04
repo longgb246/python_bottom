@@ -10,7 +10,9 @@ from kivy.app import App
 from kivy.uix.gridlayout import GridLayout
 from kivy.uix.label import Label
 from kivy.uix.textinput import TextInput
+
 from kivy.clock import Clock
+from kivy.event import EventDispatcher
 
 
 class LoginScreen(GridLayout):
@@ -26,7 +28,8 @@ class LoginScreen(GridLayout):
         self.add_widget(self.password)
 
 
-def annotation_1():
+# schedule 的基本介绍
+def annotation_schedule():
     # ====================================
     # schedule interval 事件
     def my_callback(dt):
@@ -65,6 +68,29 @@ def annotation_1():
     trigger()
 
     # Page - 76
+
+
+# widgets 的基本介绍
+def annotation_widgets():
+    # 默认有 2 种事件：1、属性事件：widget 改变位置、大小等，事件触发；2、组件定义事件：button 触发的事件
+    # 这个例子不是很明白，跟直接调用 on_test 有什么区别
+    class MyEventDispatcher(EventDispatcher):
+        def __init__(self, **kwargs):
+            self.register_event_type('on_test')
+            super(MyEventDispatcher, self).__init__(**kwargs)
+
+        def do_something(self, value):
+            # when do_something is called, the 'on_test' event will be
+            # dispatched with the value
+            self.dispatch('on_test', value)
+
+        def on_test(self, *args):
+            print "I am dispatched", args
+
+    # kivy.event.EventDispatcher.bind()
+    # ====================================
+    # 属性
+    pass
 
 
 class MyApp(App):
