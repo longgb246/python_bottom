@@ -123,11 +123,24 @@ def annotation_widgets():
     return RootWidget
 
 
+# input 管理的基本介绍
+def annotation_input():
+    # Motion event profiles
+    def on_touch_move(self, touch):
+        # 打印 on_touch_move 中的 profile。
+        print(touch.profile)
+        print('The touch is at position', touch.pos)  # x, and y will be available
+        if 'angle' in touch.profile:
+            print('The touch angle is', touch.a)
+
+    pass
+
+
 class MyApp(App):
     def build(self):
         # return Label(text='Hello world!')
-        # return LoginScreen()
-        return annotation_widgets()()
+        return LoginScreen()
+        # return annotation_widgets()()
 
 
 def main():
