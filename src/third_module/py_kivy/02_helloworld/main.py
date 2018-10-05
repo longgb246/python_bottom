@@ -11,8 +11,12 @@ from kivy.uix.gridlayout import GridLayout
 from kivy.uix.label import Label
 from kivy.uix.textinput import TextInput
 
+from kivy.properties import *
 from kivy.clock import Clock
 from kivy.event import EventDispatcher
+from kivy.uix.widget import Widget
+from kivy.uix.boxlayout import BoxLayout
+from kivy.uix.button import Button
 
 
 class LoginScreen(GridLayout):
@@ -67,8 +71,6 @@ def annotation_schedule():
     # later
     trigger()
 
-    # Page - 76
-
 
 # widgets 的基本介绍
 def annotation_widgets():
@@ -90,14 +92,47 @@ def annotation_widgets():
     # kivy.event.EventDispatcher.bind()
     # ====================================
     # 属性
-    pass
+    class CustomBtn(Widget):
+        pressed = ListProperty([0, 0])
+
+        def on_touch_down(self, touch):
+            if self.collide_point(*touch.pos):
+                self.pressed = touch.pos
+                return True
+            return super(CustomBtn, self).on_touch_down(touch)
+
+        def on_pressed(self, instance, pos):
+            # on_<prop_name> 的函数在类的内部是与 Property 对应的绑定的，（并会被调用一次？）当 Property 值改变的时候，会自动调用
+            print ('pressed at {pos}'.format(pos=pos))
+
+    # 使用 bind 绑定事件
+    class RootWidget(BoxLayout):
+
+        def __init__(self, **kwargs):
+            super(RootWidget, self).__init__(**kwargs)
+            self.add_widget(Button(text='btn 1'))
+            cb = CustomBtn()
+            cb.bind(pressed=self.btn_pressed)
+            self.add_widget(cb)
+            self.add_widget(Button(text='btn 2'))
+
+        def btn_pressed(self, instance, pos):
+            # pos : new value of the property
+            print('pos: printed from root widget: {pos}'.format(pos=pos))
+
+    return RootWidget
 
 
 class MyApp(App):
     def build(self):
         # return Label(text='Hello world!')
-        return LoginScreen()
+        # return LoginScreen()
+        return annotation_widgets()()
+
+
+def main():
+    MyApp().run()
 
 
 if __name__ == '__main__':
-    MyApp().run()
+    main()
