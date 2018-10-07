@@ -16,7 +16,7 @@ def conf_keywords():
                      'group by', 'order by', 'select', 'from', 'having', 'join', 'on', 'using', 'with']
 
     func_keywords = ['sum', 'min', 'max', 'abs', 'corr', 'count', 'exp', 'lag', 'lead', 'length', 'log',
-                     'sqrt', 'stddev', 'stddev_pop', 'stddev_samp',
+                     'sqrt', 'stddev', 'stddev_pop', 'stddev_samp','then', 'end',
                      'case', 'cast', 'date_format', 'else', 'concat', 'concat_ws', 'split', 'date_add', 'date_sub',
                      'datediff', 'row_number', 'struct', 'substring', 'to_date', 'trim', 'trunc', 'when', 'window',
                      'year', 'month', 'minute', 'as', 'desc', 'asc', 'descending', 'ascending']
@@ -106,6 +106,7 @@ def split_wrap(sql):
 
 
 def str_mode_change(sql_list, mode, wrap_keywords, func_keywords):
+    """Change the key words. Upper, lower or change nothing. """
     if mode.lower() == 'none':
         return sql_list
     else:
@@ -124,15 +125,6 @@ def str_mode_change(sql_list, mode, wrap_keywords, func_keywords):
                     frag = frag[:loc[1]] + mark_frag[loc[1]:loc[2]] + frag[loc[2]:]
                 sql_list[i] = frag
         return sql_list
-        # print('\n\ntest\n\n')
-        # print(frag)
-        # print(func_list)
-        # print(find_keywords(frag, func_list))
-        # exit()
-    # if mode.lower() == 'lower':
-    #     return
-    # if mode.lower() == 'upper':
-    #     return
 
 
 def add_indent(sql_list, wrap_keywords):
@@ -187,19 +179,25 @@ def read_sample_sql():
     return raw_sql
 
 
+def write_sample_sql(sql):
+    with open('test_format_sql.sql', 'w') as f:
+        f.write(sql)
+
+
 def sample_test():
     raw_sql = read_sample_sql()
     print('\n\n(1) [ raw_sql ]: \n')
     print(raw_sql)
-    format_sql = sql_format(raw_sql, wrap_add=[',', 'and'], mode='upper')
-    print('\n\n(2) [ upper key words format_sql ]: \n')
-    print(format_sql)
-    format_sql = sql_format(raw_sql, wrap_add=[',', 'and'], mode='lower')
-    print('\n\n(3) [ lower key words format_sql ]: \n')
-    print(format_sql)
+    print('\n\n(2) [ format_sql ]: \n')
     format_sql = sql_format(raw_sql, wrap_add=[',', 'and'])
-    print('\n\n(4) [ format_sql ]: \n')
     print(format_sql)
+    print('\n\n(3) [ lower key words format_sql ]: \n')
+    format_sql = sql_format(raw_sql, wrap_add=[',', 'and'], mode='lower')
+    print(format_sql)
+    print('\n\n(4) [ upper key words format_sql ]: \n')
+    format_sql = sql_format(raw_sql, wrap_add=[',', 'and'], mode='upper')
+    print(format_sql)
+    write_sample_sql(format_sql)
 
 
 if __name__ == '__main__':
