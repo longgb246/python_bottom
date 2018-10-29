@@ -37,6 +37,12 @@ elif sys_platform == 'mac':
 
     matplotlib.use('TkAgg')
 
+from matplotlib.font_manager import FontProperties
+import matplotlib.pyplot as plt
+import matplotlib.ticker as ticker
+
+plt.style.use('seaborn')
+
 if __name__ == '__main__':
     print()
     print('platform.system().lower() : ', platform.system().lower())
