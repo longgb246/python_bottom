@@ -44,28 +44,28 @@ def get_file_size(filePath, h=True):
     return res_info
 
 
-def get_FileCreateTime(filePath):
+def get_file_createtime(filePath):
     """获取文件的创建时间"""
     filePath = unicode(filePath, 'utf8')
     t = os.path.getctime(filePath)
-    return TimeStampToTime(t)
+    return timestamp2time(t)
 
 
-def get_FileModifyTime(filePath):
+def get_file_modifytime(filePath):
     """获取文件的修改时间"""
     filePath = unicode(filePath, 'utf8')
     t = os.path.getmtime(filePath)
-    return TimeStampToTime(t)
+    return timestamp2time(t)
 
 
-def TimeStampToTime(timestamp):
+def timestamp2time(timestamp):
     """把时间戳转化为时间: 1479264792 to 2016-11-16 10:53:12"""
     timeStruct = time.localtime(timestamp)
     return time.strftime('%Y-%m-%d %H:%M:%S', timeStruct)
 
 
-def get_FileAccessTime(filePath):
+def get_file_accesstime(filePath):
     """获取文件的访问时间"""
     filePath = unicode(filePath, 'utf8')
     t = os.path.getatime(filePath)
-    return TimeStampToTime(t)
+    return timestamp2time(t)
