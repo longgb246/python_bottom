@@ -45,6 +45,7 @@ plt.style.use('seaborn')
 
 import pandas as pd
 
+pd.set_option('display.max_colwidth', 20)
 pd.set_option('display.max_rows', 20)
 pd.set_option('display.width', 180)  # 150
 pd.set_option('display.max_columns', 40)
