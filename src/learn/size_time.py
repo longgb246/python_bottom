@@ -10,7 +10,13 @@ import os
 import time
 
 
-def trans_num2size(num_size, h=True):
+def file_num2size(num_size, h=True):
+    """文件大小数值变为 MB 的显示
+
+    :param num_size: 文件大小
+    :param h: 是否 human 显示
+    :return: {'value': 数值，'measure': 单位，'str': 字串, 'org_size': 原始大小}
+    """
     measure_list = ['B', 'KB', 'MB', 'GB', 'TB', 'PB']
     fsize = num_size
 
@@ -40,22 +46,8 @@ def get_file_size(filePath, h=True):
     """
     # filePath = unicode(filePath, 'utf8')
     org_fsize = os.path.getsize(filePath)
-    res_info = trans_num2size(org_fsize, h=h)
+    res_info = file_num2size(org_fsize, h=h)
     return res_info
-
-
-def get_file_createtime(filePath):
-    """获取文件的创建时间"""
-    filePath = unicode(filePath, 'utf8')
-    t = os.path.getctime(filePath)
-    return timestamp2time(t)
-
-
-def get_file_modifytime(filePath):
-    """获取文件的修改时间"""
-    filePath = unicode(filePath, 'utf8')
-    t = os.path.getmtime(filePath)
-    return timestamp2time(t)
 
 
 def timestamp2time(timestamp):
@@ -64,8 +56,22 @@ def timestamp2time(timestamp):
     return time.strftime('%Y-%m-%d %H:%M:%S', timeStruct)
 
 
+def get_file_createtime(filePath):
+    """获取文件的创建时间"""
+    # filePath = unicode(filePath, 'utf8')
+    t = os.path.getctime(filePath)
+    return timestamp2time(t)
+
+
+def get_file_modifytime(filePath):
+    """获取文件的修改时间"""
+    # filePath = unicode(filePath, 'utf8')
+    t = os.path.getmtime(filePath)
+    return timestamp2time(t)
+
+
 def get_file_accesstime(filePath):
     """获取文件的访问时间"""
-    filePath = unicode(filePath, 'utf8')
+    # filePath = unicode(filePath, 'utf8')
     t = os.path.getatime(filePath)
     return timestamp2time(t)
