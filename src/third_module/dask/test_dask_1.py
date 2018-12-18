@@ -374,4 +374,8 @@ def test_sklearn():
     clf.fit(X_train, y_train)
     y_pred = clf.predict(X_large)
     clf.score(X_large, y_large)
+
+    # est.partial_fit(X_train_1, y_train_1)
+
+    # from tpot import TPOTClassifier
     pass
