@@ -379,3 +379,46 @@ def test_sklearn():
 
     # from tpot import TPOTClassifier
     pass
+
+
+def print_and_return(string):
+    print(string)
+    return string
+
+
+def format_str(count, val, nwords):
+    return ('word list has {0} occurrences of {1}, '
+            'out of {2} words').format(count, val, nwords)
+
+
+dsk = {'words': 'apple orange apple pear orange pear pear',
+       'nwords': (len, (str.split, 'words')),
+       'val1': 'orange',
+       'val2': 'apple',
+       'val3': 'pear',
+       'count1': (str.count, 'words', 'val1'),
+       'count2': (str.count, 'words', 'val2'),
+       'count3': (str.count, 'words', 'val3'),
+       'out1': (format_str, 'count1', 'val1', 'nwords'),
+       'out2': (format_str, 'count2', 'val2', 'nwords'),
+       'out3': (format_str, 'count3', 'val3', 'nwords'),
+       'print1': (print_and_return, 'out1'),
+       'print2': (print_and_return, 'out2'),
+       'print3': (print_and_return, 'out3')}
+
+dask.visualize(dsk, filename='/Users/longguangbin/Work/temp/dask2.pdf')
+
+from dask.threaded import get
+from dask.optimization import cull
+from dask.optimization import inline
+
+outputs = ['print1', 'print2']
+results = get(dsk, outputs)
+
+dsk1, dependencies = cull(dsk, outputs)
+
+dsk2 = inline(dsk1, dependencies=dependencies)
+results = get(dsk2, outputs)
+
+# https://docs.dask.org/en/latest/optimize.html
+
