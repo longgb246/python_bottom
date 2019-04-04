@@ -56,9 +56,9 @@ class TestJForecast(TestCase):
         ForecastResultUtils = jf.getForecastResultUtils()
 
         # 计算数据
-        start_date = jf.jDate('2019-02-15 10:00:00')  # 计算开始日期
-        days = jf.jDouble(3.5)  # 持续时长
-        cr = jf.jDouble(0.95)  # cr 值
+        start_date = jf.xxxate('2019-02-15 10:00:00')  # 计算开始日期
+        days = jf.xxxouble(3.5)  # 持续时长
+        cr = jf.xxxouble(0.95)  # cr 值
 
         forecast_result = ForecastResultUtils.parseForecastResultFromString(str(mock_data))
 

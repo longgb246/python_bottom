@@ -30,17 +30,17 @@ class PyJava(object):
 
     with PyJava(jar_path):
         # 计算数据
-        start_date = jDate('2019-02-15 10:00:00')  # 计算开始日期
-        days = jDouble(3.5)  # 持续时长
-        cr = jDouble(0.95)  # cr 值
+        start_date = xxxate('2019-02-15 10:00:00')  # 计算开始日期
+        days = xxxouble(3.5)  # 持续时长
+        cr = xxxouble(0.95)  # cr 值
         forecast_result = ForecastResultUtils.parseForecastResultFromString(str(mock_data))
         print('mean : ', ForecastResultUtils.getCumMean(forecast_result, start_date, days, 'normal'))
         print('quantile : ', ForecastResultUtils.getCumQuantile(forecast_result, start_date, days, cr, 'normal'))
     """
 
     def __init__(self, jar_path=[], jvm_path=''):
-        # java10 : /Library/Java/JavaVirtualMachines/jdk-10.0.2.jdk/Contents/Home/lib/jli/libjli.dylib
-        # java8 : /Library/Java/JavaVirtualMachines/jdk1.8.0_201.jdk/Contents/Home/jre/lib/server/libjvm.dylib
+        # java10 : /Library/Java/JavaVirtualMachines/xxxk-10.0.2.xxxk/Contents/Home/lib/jli/libjli.dylib
+        # java8 : /Library/Java/JavaVirtualMachines/xxxk1.8.0_201.xxxk/Contents/Home/jre/lib/server/libjvm.dylib
 
         # startJVM(getDefaultJVMPath(), "-ea")
         # startJVM(path, '-Djava.class.path=/Users/longguangbin/Work/java/ipc_forecast.jar')
@@ -110,7 +110,7 @@ def close_jvm():
     shutdownJVM()
 
 
-def jDate(date):
+def xxxate(date):
     """Transform python date string to Java Date object. """
     if _flag_parse:
         date = parse(date).strftime('%Y-%m-%d %H:%M:%S')
@@ -123,7 +123,7 @@ def jDate(date):
     return j_date
 
 
-def jDouble(num):
+def xxxouble(num):
     """Transform python float to Java Double object. """
     return java.lang.Double(float(num))
 
@@ -142,18 +142,18 @@ def getForecastResult(package=''):
     if package:
         return JClass(package)
     else:
-        return JClass('com.jd.y.ipc.demand.ForecastResult')
+        return JClass('com.xxx.y.ipc.demand.ForecastResult')
 
 
 def getForecastResultUtils(package=''):
     if package:
         return JClass(package)
     else:
-        return JClass('com.jd.y.ipc.demand.ForecastResultUtils')
+        return JClass('com.xxx.y.ipc.demand.ForecastResultUtils')
 
 
 def main():
-    # path = '/Library/Java/JavaVirtualMachines/jdk1.8.0_201.jdk/Contents/Home/jre/lib/server/libjvm.dylib'
+    # path = '/Library/Java/JavaVirtualMachines/xxxk1.8.0_201.xxxk/Contents/Home/jre/lib/server/libjvm.dylib'
 
     # jar 包的位置
     jar_path = ['/Users/longguangbin/Work/java/learn_test-1.0-SNAPSHOT.jar']
@@ -176,9 +176,9 @@ def main():
     ForecastResultUtils = getForecastResultUtils()
 
     # 计算数据
-    start_date = jDate('2019-02-15 10:00:00')  # 计算开始日期
-    days = jDouble(3.5)  # 持续时长
-    cr = jDouble(0.95)  # cr 值
+    start_date = xxxate('2019-02-15 10:00:00')  # 计算开始日期
+    days = xxxouble(3.5)  # 持续时长
+    cr = xxxouble(0.95)  # cr 值
 
     forecast_result = ForecastResultUtils.parseForecastResultFromString(str(mock_data))
 

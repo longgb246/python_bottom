@@ -7,9 +7,9 @@ Usage Of 'test_dask_1' :
 """
 
 # ipc
-#### jdvl start -m /data0/spark:/data0/spark:ro -m /data0/cmo_ipc:/data0/cmo_ipc:rw -i bdp-docker.jd.com:5000/wise_mart_cmo_ipc -o='--net=host' -I bash
+#### xxxvl start -m /data0/spark:/data0/spark:ro -m /data0/cmo_ipc:/data0/cmo_ipc:rw -i bdp-docker.xxx.com:5000/wise_mart_cmo_ipc -o='--net=host' -I bash
 # bca
-#### jdvl start -m /data0/mart_bca:/data0/mart_bca:rw -i bdp-docker.jd.com:5000/wise_mart_bca:latest -o='--net=host' -I bash
+#### xxxvl start -m /data0/mart_bca:/data0/mart_bca:rw -i bdp-docker.xxx.com:5000/wise_mart_bca:latest -o='--net=host' -I bash
 
 # 单机使用调研
 from __future__ import print_function
